@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.bruno";
+option java_outer_classname = "PropostaGrpc";
+package br.com.bruno;
+import "google/protobuf/timestamp.proto";
+
+service PropostaService {
+  rpc salvar (PropostaRequest) returns (PropostaResponse) {}
+
+  rpc consultar(PropostaConsultaRequest) returns (PropostaConsultaResponse){}
+}
+
+service BiometriaService{
+  rpc salvar(BiometriaRequest) returns (BiometriaResponse){}
+}
+
+service BloqueioService{
+  rpc bloquear(BloqueioRequest) returns (BloqueioResponse){}
+}
+
+service ViagemService{
+  rpc avisoViagem(AvisoRequest) returns (AvisoResponse){}
+}
+
+service CarteiraService{
+  rpc adicionar(CarteiraRequest) returns (CarteiraResponse){}
+}
+
+enum IdentificadorCarteira{
+  UNKNOW = 0;
+  PAYPAL = 1;
+  SAMSUNG_PLAY = 2;
+}
+
+message CarteiraRequest{
+  string idCartao = 1;
+  string email = 2;
+  IdentificadorCarteira carteira = 3;
+}
+
+message CarteiraResponse{
+  string resultado = 1;
+  string id = 2;
+}
+
+message AvisoRequest{
+  string idCartao = 1;
+  string destino = 2;
+  string validoAte = 3;
+}
+
+message AvisoResponse{
+  string resultado = 1;
+}
+
+message BloqueioRequest{
+  string sistemaResponsavel = 1;
+  string idCartao = 2;
+}
+
+message BloqueioResponse{
+  string status = 1;
+}
+
+message BiometriaRequest{
+  string fingerprint = 1;
+  string idCartao = 2;
+}
+
+message BiometriaResponse{
+  string id = 1;
+}
+message PropostaConsultaRequest{
+  string idProposta = 1;
+}
+
+message PropostaConsultaResponse{
+  string idProposta = 1;
+  string documento = 2;
+  string nome = 3;
+  Endereco endereco = 4;
+  double salario = 5;
+  string status = 6;
+}
+
+message PropostaRequest {
+  string documento = 1;
+  string email = 2;
+  string nome = 3;
+  Endereco endereco = 4;
+  double salario = 5;
+}
+
+message Endereco{
+  string rua = 1;
+  string cidade = 2;
+  string complemento = 3;
+  string estado = 4;
+  string cep = 5;
+}
+
+message PropostaResponse {
+  string id = 1;
+}

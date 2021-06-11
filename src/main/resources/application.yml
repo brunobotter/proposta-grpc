@@ -1,0 +1,25 @@
+micronaut:
+   application:
+     name: propostaGrpc
+grpc:
+   server:
+     port: ${SERVER_PORT:50051}
+     keep-alive: 1h
+     max-inbound-message-size: 1024
+datasources:
+   default:
+     url: jdbc:postgresql://localhost:5432/proposta-grpc
+     driverClassName: org.postgresql.Driver
+     username: keycloak
+     password: password
+     schema-generate: update
+jpa.default.properties.hibernate.hbm2ddl.auto: update
+
+
+analise:
+   host:
+     url: ${ANALISES_URL:`http://localhost:9999/api/solicitacao`}
+
+cartao:
+   host:
+     url: ${CARTOES_URL:`http://localhost:8888/api/cartoes`}
